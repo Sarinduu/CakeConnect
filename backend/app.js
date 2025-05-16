@@ -1,6 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 
+const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
+const userRoutes = require("./routes/userRoutes");
+
 const app = express();
 
 // Middleware
@@ -16,7 +23,12 @@ app.use((req, res, next) => {
 //-------------------
 
 // Routes
-// Example: app.use('/api/users', require('./routes/userRoutes'));
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api", userRoutes);
 
 // Health check route
 app.get("/", (req, res) => {
