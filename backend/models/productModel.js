@@ -21,8 +21,13 @@ const ProductSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      required: [true, "Product category is required"],
-      enum: ["cake", "cookie", "cupcake", "bread", "pastry", "other"],
+      required: [true, "Main category is required"],
+      enum: ["cake", "bakery"],
+    },
+    subcategory: {
+      type: String,
+      required: [true, "Subcategory is required"],
+      enum: ["cupcake", "cookie", "bread", "pastry", "other"],
       default: "other",
     },
     baker: {

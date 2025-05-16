@@ -6,7 +6,7 @@ const {
 
 // Add product
 const addProduct = async (req, res) => {
-  const { name, price, description, category } = req.body;
+  const { name, price, description, category, subcategory } = req.body;
   const bakerId = req.user.id;
 
   try {
@@ -28,6 +28,7 @@ const addProduct = async (req, res) => {
       price,
       description,
       category,
+      subcategory,
       imageUrl,
       imageFilename,
       baker: bakerId,
@@ -93,7 +94,13 @@ const updateProduct = async (req, res) => {
     }
 
     // Dynamic loop for PATCH-style updates
-    const allowedFields = ["name", "price", "description", "category"];
+    const allowedFields = [
+      "name",
+      "price",
+      "description",
+      "category",
+      "subcategory",
+    ];
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
         product[field] = req.body[field];
