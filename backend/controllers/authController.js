@@ -42,8 +42,8 @@ const registerUser = async (req, res) => {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
 
-    user.refreshToken = refreshToken;
-    await user.save();
+    //user.refreshToken = refreshToken;
+    //await user.save();
 
     return res.status(201).json({ accessToken, refreshToken });
   } catch (err) {
@@ -68,8 +68,8 @@ const loginUser = async (req, res) => {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
 
-    user.refreshToken = refreshToken;
-    await user.save();
+    //user.refreshToken = refreshToken;
+    //await user.save();
 
     return res.json({ accessToken, refreshToken });
   } catch (err) {

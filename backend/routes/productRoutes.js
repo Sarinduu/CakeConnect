@@ -7,6 +7,7 @@ const {
   getProductById,
   updateProduct,
   deleteProduct,
+  getProductsByBaker,
 } = require("../controllers/productController");
 
 const { protect, checkRole } = require("../middleware/authMiddleware");
@@ -26,6 +27,11 @@ router.post(
 // @desc    Get all products
 // @access  Public
 router.get("/", getAllProducts);
+
+// @route   GET /api/products/baker
+// @desc    Get all products for a given baker
+// @access  Private
+router.get("/baker", protect, checkRole("baker"), getProductsByBaker);
 
 // @route   GET /api/products/:id
 // @desc    Get single product by ID

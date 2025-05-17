@@ -117,9 +117,18 @@ const markOrderAsPaid = async (req, res) => {
 // Get all orders for current customer
 const getMyOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ customer: req.user.id }).sort({
-      createdAt: -1,
-    });
+    const orders = await Order.find({ customer: req.user.id })
+      .sort({ createdAt: -1 })
+      .populate("customer", "name email")
+      .populate({
+        path: "bakerOrders.baker",
+        select: "name email", // Customize fields as needed
+      })
+      .populate({
+        path: "bakerOrders.products.product",
+        select: "name imageUrl price", // Ensure 'image' exists in Product schema
+      });
+
     res.json(orders);
   } catch (err) {
     console.error("Fetch customer orders error:", err.message);
@@ -130,20 +139,23 @@ const getMyOrders = async (req, res) => {
 // Get all orders containing this baker's products
 const getBakerOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ "bakerOrders.baker": req.user.id }).sort({
-      createdAt: -1,
-    });
+    const orders = await Order.find({ "bakerOrders.baker": req.user.id })
+      .populate("customer", "name email") // populate customer basic info
+      .populate("bakerOrders.products.product", "name imageUrl price") // populate product info in bakerOrders
+      .sort({ createdAt: -1 });
 
     // Filter only relevant bakerOrder part per order
     const filtered = orders.map((order) => {
       const bakerOrder = order.bakerOrders.find(
         (bo) => bo.baker.toString() === req.user.id
       );
+
       return {
         _id: order._id,
         customer: order.customer,
         shippingAddress: order.shippingAddress,
         orderedAt: order.orderedAt,
+        paymentStatus: order.paymentStatus,
         bakerOrder,
       };
     });
@@ -195,11 +207,20 @@ const getOrderById = async (req, res) => {
   const { orderId } = req.params;
 
   try {
-    const order = await Order.findById(orderId).populate(
-      "customer",
-      "name email"
-    );
-    if (!order) return res.status(404).json({ message: "Order not found" });
+    const order = await Order.findById(orderId)
+      .populate("customer", "name email")
+      .populate({
+        path: "bakerOrders.baker",
+        select: "name", // Customize fields as needed
+      })
+      .populate({
+        path: "bakerOrders.products.product",
+        select: "name price", // Customize fields as needed
+      });
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
 
     if (
       req.user.role === "customer" &&

@@ -80,7 +80,7 @@
     font-weight: 600;
     margin-bottom: 20px;
     color: #0f172a;
-    position: relative;
+    /* position: relative; */
     padding-bottom: 10px;
   }
   
@@ -110,7 +110,7 @@
     transition: all 0.3s ease;
     font-size: 0.95rem;
     display: inline-block;
-    position: relative;
+    /* position: relative; */
   }
   
   .footer-link::after {

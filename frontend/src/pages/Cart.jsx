@@ -1,85 +1,149 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Cart.css';
+import React, { useEffect, useState } from "react";
+import {
+  fetchCart,
+  updateCartItem,
+  removeCartItem,
+  clearCart,
+} from "../services/cartService";
+import { placeOrder } from "../services/orderService";
+import { Link, useNavigate } from "react-router-dom";
+import "../styles/cartPageStyles.css";
 
 const CartPage = () => {
-  // Retrieve cart items from localStorage or state management
-  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  const [cartItems, setCartItems] = useState([]);
+  const [loadingCart, setLoadingCart] = useState(true);
+  const [placingOrder, setPlacingOrder] = useState(false);
+  const navigate = useNavigate();
+  const deliveryFee = 200;
 
-  // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const deliveryFee = 500; // Example delivery fee
+  const loadCart = async () => {
+    try {
+      const res = await fetchCart();
+      setCartItems(res.items || []);
+    } catch (err) {
+      console.error("Failed to fetch cart", err.message);
+    } finally {
+      setLoadingCart(false);
+    }
+  };
+
+  useEffect(() => {
+    loadCart();
+  }, []);
+
+  const handleQuantityChange = async (productId, quantity) => {
+    try {
+      await updateCartItem(productId, quantity);
+      loadCart();
+    } catch (err) {
+      console.error("Failed to update quantity", err.message);
+    }
+  };
+
+  const handleRemoveItem = async (productId) => {
+    try {
+      await removeCartItem(productId);
+      loadCart();
+    } catch (err) {
+      console.error("Failed to remove item", err.message);
+    }
+  };
+
+  const handleClearCart = async () => {
+    try {
+      await clearCart();
+      loadCart();
+    } catch (err) {
+      console.error("Failed to clear cart", err.message);
+    }
+  };
+
+  const handlePlaceOrder = async () => {
+    setPlacingOrder(true);
+    try {
+      const newOrder = await placeOrder();
+      navigate("/payment", { state: { orderId: newOrder._id } });
+    } catch (err) {
+      const errorMessage =
+        err?.response?.data?.message || err?.message || "Failed to place order";
+      alert(errorMessage);
+    } finally {
+      setPlacingOrder(false);
+    }
+  };
+
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
   const total = subtotal + deliveryFee;
-
-  // Handle quantity changes
-  const updateQuantity = (id, newQuantity) => {
-    const updatedCart = cartItems.map(item => 
-      item.id === id ? {...item, quantity: newQuantity} : item
-    );
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    window.location.reload(); // Refresh to show changes
-  };
-
-  // Remove item from cart
-  const removeItem = (id) => {
-    const updatedCart = cartItems.filter(item => item.id !== id);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    window.location.reload(); // Refresh to show changes
-  };
 
   return (
     <div className="cart-page">
       <header className="cart-header">
-        <h1>Your Shopping Cart</h1>
-        <p>Review and proceed to checkout</p>
+        <h1>Your Cart</h1>
+        <p>Manage items and complete your order</p>
       </header>
 
-      {cartItems.length === 0 ? (
+      {loadingCart ? (
+        <div className="loader">
+          <div className="spinner" />
+        </div>
+      ) : cartItems.length === 0 ? (
         <div className="empty-cart">
-          <div className="empty-cart-content">
-            <img src="/images/empty-cart.svg" alt="Empty cart" />
-            <h2>Your cart is empty</h2>
-            <p>Looks like you haven't added any items yet</p>
-            <Link to="/browse" className="browse-btn">
-              Browse Products
-            </Link>
-          </div>
+          <img src="/images/empty-cart.svg" alt="Empty Cart" />
+          <h2>Your cart is empty</h2>
+          <p>Start adding some tasty items!</p>
+          <Link to="/products" className="browse-btn">
+            Browse Products
+          </Link>
         </div>
       ) : (
         <div className="cart-container">
           <div className="cart-items">
             <div className="cart-items-header">
-              <h2>Your Items ({cartItems.length})</h2>
+              <h2>Your Items</h2>
+              <button className="clear-btn" onClick={handleClearCart}>
+                Clear Cart
+              </button>
             </div>
-            
-            {cartItems.map(item => (
-              <div key={item.id} className="cart-item">
+
+            {cartItems.map((item) => (
+              <div key={item.product._id} className="cart-item">
                 <div className="item-image">
-                  <img src={item.photo} alt={item.name} />
+                  <img
+                    src={item.product.imageUrl}
+                    alt={item.product.name}
+                    loading="lazy"
+                  />
                 </div>
-                <div className="item-details">
-                  <h3>{item.name}</h3>
-                  <p className="item-category">
-                    {item.category === 'cakes' ? 'Cake' : 'Bakery Item'}
-                  </p>
-                  <div className="item-price">LKR {item.price.toLocaleString()}</div>
+                <div className="item-info">
+                  <h3>{item.product.name}</h3>
+                  <p className="item-category">{item.product.category}</p>
+                  <div className="item-controls">
+                    <select
+                      value={item.quantity}
+                      onChange={(e) =>
+                        handleQuantityChange(
+                          item.product._id,
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      {[...Array(10)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="item-price">
+                      LKR {(item.price * item.quantity).toLocaleString()}
+                    </span>
+                  </div>
                 </div>
-                <div className="item-quantity">
-                  <select 
-                    value={item.quantity || 1}
-                    onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
-                  >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                      <option key={num} value={num}>{num}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="item-total">
-                  LKR {(item.price * (item.quantity || 1)).toLocaleString()}
-                </div>
-                <button 
+                <button
                   className="remove-item"
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => handleRemoveItem(item.product._id)}
                 >
                   ×
                 </button>
@@ -88,26 +152,30 @@ const CartPage = () => {
           </div>
 
           <div className="cart-summary">
-            <h2>Order Summary</h2>
+            <h2>Summary</h2>
             <div className="summary-row">
               <span>Subtotal</span>
               <span>LKR {subtotal.toLocaleString()}</span>
             </div>
             <div className="summary-row">
-              <span>Delivery Fee</span>
+              <span>Delivery</span>
               <span>LKR {deliveryFee.toLocaleString()}</span>
             </div>
-            <div className="summary-divider"></div>
+            <div className="summary-divider" />
             <div className="summary-row total">
               <span>Total</span>
               <span>LKR {total.toLocaleString()}</span>
             </div>
-            
-            <Link to="/checkout" className="checkout-btn">
-              Proceed to Checkout
-            </Link>
-            
-            <Link to="/browse" className="continue-shopping">
+
+            <button
+              className="checkout-btn"
+              onClick={handlePlaceOrder}
+              disabled={placingOrder}
+            >
+              {placingOrder ? "Placing Order..." : "Place Order"}
+            </button>
+
+            <Link to="/products" className="continue-shopping">
               Continue Shopping
             </Link>
           </div>

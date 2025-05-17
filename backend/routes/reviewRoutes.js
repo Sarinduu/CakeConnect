@@ -6,7 +6,7 @@ const {
   getProductReviews,
   updateReview,
   deleteReview,
-  getMyReviews
+  getMyReviews,
 } = require("../controllers/reviewController");
 
 const { protect, checkRole } = require("../middleware/authMiddleware");
@@ -22,7 +22,7 @@ router.post("/", checkRole("customer"), addReview);
 // @route   GET /api/reviews/:productId
 // @desc    Get all reviews for a product
 // @access  Public
-router.get("/:productId",checkRole("baker"), getProductReviews);
+router.get("/:productId", checkRole("baker", "customer"), getProductReviews);
 
 // @route   GET /api/reviews/my
 // @desc    Get all reviews by the logged-in customer

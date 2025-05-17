@@ -39,9 +39,9 @@ const checkRole = (...allowedRoles) => {
 
     if (!allowedRoles.includes(role)) {
       const roleMessages = {
-        admin: "Admins only can access this resource.",
-        baker: "Only bakers are allowed to access this endpoint.",
-        customer: "Only customers are allowed to perform this action.",
+        admin: "Admins can access this resource.",
+        baker: "Bakers are allowed to access this endpoint.",
+        customer: "Customers are allowed to perform this action.",
       };
 
       return res.status(403).json({

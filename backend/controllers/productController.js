@@ -67,6 +67,22 @@ const getProductById = async (req, res) => {
   }
 };
 
+// Get all products for a given baker
+const getProductsByBaker = async (req, res) => {
+  const bakerId = req.user.id;
+
+  try {
+    const products = await Product.find({ baker: bakerId }).populate(
+      "baker",
+      "name email"
+    );
+    res.json(products);
+  } catch (err) {
+    console.error("Get products by baker error:", err.message);
+    res.status(500).json({ message: "Failed to fetch products for baker" });
+  }
+};
+
 // Update product
 const updateProduct = async (req, res) => {
   const { id } = req.params;
@@ -141,4 +157,5 @@ module.exports = {
   getProductById,
   updateProduct,
   deleteProduct,
+  getProductsByBaker,
 };

@@ -599,14 +599,14 @@ body {
   margin-bottom: 2rem;
 }
 
-.profile-image {
+/* .profile-image {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
   border: 5px solid #f8edeb;
-}
+} */
 
 .profile-info {
   flex: 1;
@@ -781,11 +781,11 @@ body {
   padding-bottom: 0.5rem;
 }
 
-.cart-items {
+/* .cart-items {
   max-height: 200px;
   overflow-y: auto;
   margin-bottom: 1rem;
-}
+} */
 
 .cart-item {
   display: flex;
@@ -837,9 +837,9 @@ body {
     flex-direction: column;
   }
   
-  .profile-image {
+  /* .profile-image {
     margin: 0 auto;
-  }
+  } */
   
   .form-row {
     flex-direction: column;
