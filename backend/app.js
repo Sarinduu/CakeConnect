@@ -8,6 +8,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const userRoutes = require("./routes/userRoutes");
 const contactRoutes = require("./routes/contactRoutes");
+const cakeDesignRequestRoutes = require("./routes/cakeDesignRequestRoutes");
 
 const app = express();
 
@@ -31,6 +32,8 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api", userRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/cake-designs", cakeDesignRequestRoutes);
+
 
 
 

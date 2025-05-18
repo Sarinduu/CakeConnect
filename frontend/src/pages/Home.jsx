@@ -1,39 +1,58 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Home.css';
- 
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Home.css";
+import CakeTemplateGallery from "../components/CakeTemplateGallery";
+
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleEditTemplate = (layers) => {
+    // Navigate with template data (or use context/localStorage)
+    localStorage.setItem("templateLayers", JSON.stringify(layers));
+    navigate("/cakedesign");
+  };
+
   return (
     <div className="homepage">
-    {/* Hero Section */}
-<section className="hero">
-  <div className="container">
-    <div className="hero-content">
-      <h1>Discover & Customize Perfect Cakes</h1>
-      <p>Connecting you with talented bakers across the country</p>
-      <div className="cta-buttons">
-        <Link to="/customize" className="primary-btn">Design Your Cake</Link>
-        <Link to="/products" className="secondary-btn">Browse Products</Link>
-        <Link to="/bakers" className="secondary-btn">Bakers</Link>
-      </div>
-    </div>
-    <div className="hero-gallery">
-      {[
-        { id: 1, photo: "/images/hero2.jpg", alt: "Wedding Cake Design" },
-        { id: 2, photo: "/images/hero1.jpg", alt: "Birthday Cake Design" },
-        { id: 3, photo: "/images/hero3.jpg", alt: "Anniversary Cake" },
-        { id: 4, photo: "/images/hero4.jpg", alt: "Custom Fondant Cake" }
-      ].map((image, index) => (
-        <div 
-          key={image.id}
-          className={`hero-image ${index === 0 ? 'active' : ''}`}
-          style={{ backgroundImage: `url(${image.photo})` }}
-          aria-label={image.alt}
-        ></div>
-      ))}
-    </div>
-  </div>
-</section>
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <h1>Discover & Customize Perfect Cakes</h1>
+            <p>Connecting you with talented bakers across the country</p>
+            <div className="cta-buttons">
+              <Link to="/cakedesign" className="primary-btn">
+                Design Your Cake
+              </Link>
+              <Link to="/products" className="secondary-btn">
+                Browse Products
+              </Link>
+              <Link to="/bakers" className="secondary-btn">
+                Bakers
+              </Link>
+            </div>
+          </div>
+          <div className="hero-gallery">
+            {[
+              { id: 1, photo: "/images/hero2.jpg", alt: "Wedding Cake Design" },
+              {
+                id: 2,
+                photo: "/images/hero1.jpg",
+                alt: "Birthday Cake Design",
+              },
+              { id: 3, photo: "/images/hero3.jpg", alt: "Anniversary Cake" },
+              { id: 4, photo: "/images/hero4.jpg", alt: "Custom Fondant Cake" },
+            ].map((image, index) => (
+              <div
+                key={image.id}
+                className={`hero-image ${index === 0 ? "active" : ""}`}
+                style={{ backgroundImage: `url(${image.photo})` }}
+                aria-label={image.alt}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
       <section className="features">
@@ -65,7 +84,7 @@ const HomePage = () => {
       </section>
 
       {/* Popular Cakes Section */}
-<section className="popular-cakes">
+      {/* <section className="popular-cakes">
   <div className="container">
     <h2>Popular Cake Designs</h2>
     <div className="cakes-grid">
@@ -90,7 +109,9 @@ const HomePage = () => {
       ))}
     </div>
   </div>
-</section>
+</section> */}
+
+      <CakeTemplateGallery onSelect={handleEditTemplate} />
 
       {/* CTA Section */}
       <section className="cta-section">
@@ -98,8 +119,12 @@ const HomePage = () => {
           <h2>Ready to Create Your Perfect Cake?</h2>
           <p>Start designing now or browse our baker collections</p>
           <div className="cta-buttons">
-            <Link to="/customize" className="primary-btn">Start Designing</Link>
-            <Link to="/bakers" className="secondary-btn">Find a Baker</Link>
+            <Link to="/cakedesign" className="primary-btn">
+              Start Designing
+            </Link>
+            <Link to="/bakers" className="secondary-btn">
+              Find a Baker
+            </Link>
           </div>
         </div>
       </section>

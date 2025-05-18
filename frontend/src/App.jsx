@@ -27,184 +27,224 @@ import PaymentPage from "./pages/PaymentPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import MyProductsPage from "./pages/MyProductsPage";
 import AdminContactMessages from "./pages/AdminContactMessages";
-
+import CakeDesigner from "./pages/CakeDesigner";
+import ScrollToTop from "./utils/ScrollToTop";
+import CakeRequestPage from "./pages/CakeRequestPage";
+import BakerCakeRequestsPage from "./pages/BakerCakeRequestsPage";
 
 function App() {
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <BaseLayout showFooter={false}>
-              <Login />
-            </BaseLayout>
-          </PublicRoute>
-        }
-      />
+    <>
+      <ScrollToTop />
+      <Routes>
+        {/* Public Routes */}
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <BaseLayout showFooter={false}>
+                <Login />
+              </BaseLayout>
+            </PublicRoute>
+          }
+        />
 
-      <Route
-        path="/register"
-        element={
-          <PublicRoute>
-            <BaseLayout showFooter={false}>
-              <Register />
-            </BaseLayout>
-          </PublicRoute>
-        }
-      />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <BaseLayout showFooter={false}>
+                <Register />
+              </BaseLayout>
+            </PublicRoute>
+          }
+        />
 
-      {/* Protected Routes  */}
+        {/* Protected Routes  */}
 
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute allowedRoles={["customer"]}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <BaseLayout>
+                <Home />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <BaseLayout>
+                <Cart />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <BaseLayout>
+                <Products />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <BaseLayout>
+                <PaymentPage />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cakedesign"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <BaseLayout>
+                <CakeDesigner />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+         <Route
+          path="/cake-request"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <BaseLayout>
+                <CakeRequestPage />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+
+        
+
+        <Route
+          path="/my-orders"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <BaseLayout>
+                <MyOrdersPage />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/bkdashboard"
+          element={
+            <ProtectedRoute allowedRoles={["baker"]}>
+              <BaseLayout>
+                <BakerDashboard />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/myproducts"
+          element={
+            <ProtectedRoute allowedRoles={["baker"]}>
+              <BaseLayout>
+                <MyProductsPage />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/bcrequests"
+          element={
+            <ProtectedRoute allowedRoles={["baker"]}>
+              <BaseLayout>
+                <BakerCakeRequestsPage />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/bakers"
+          element={
+            <ProtectedRoute allowedRoles={["customer", "admin"]}>
+              <BaseLayout>
+                <BakerDirectoryPage />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/adminpanel"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <BaseLayout>
+                <AdminPanel />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admincontact"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <BaseLayout>
+                <AdminContactMessages />
+              </BaseLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Not Found */}
+        <Route
+          path="/notfound"
+          element={
             <BaseLayout>
-              <Home />
+              <NotFoundPage />
             </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/cart"
-        element={
-          <ProtectedRoute allowedRoles={["customer"]}>
+          }
+        />
+
+        <Route
+          path="/about"
+          element={
             <BaseLayout>
-              <Cart />
+              <About />
             </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
+          }
+        />
 
-      <Route
-        path="/products"
-        element={
-          <ProtectedRoute allowedRoles={["customer"]}>
+        <Route
+          path="/contact"
+          element={
             <BaseLayout>
-              <Products />
+              <Contact />
             </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
+          }
+        />
 
-      <Route
-        path="/payment"
-        element={
-          <ProtectedRoute allowedRoles={["customer"]}>
+        <Route
+          path="/profile"
+          element={
             <BaseLayout>
-              <PaymentPage />
+              <ProfilePage />
             </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
+          }
+        />
 
-      <Route
-        path="/my-orders"
-        element={
-          <ProtectedRoute allowedRoles={["customer"]}>
-            <BaseLayout>
-              <MyOrdersPage />
-            </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/bkdashboard"
-        element={
-          <ProtectedRoute allowedRoles={["baker"]}>
-            <BaseLayout>
-              <BakerDashboard />
-            </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/myproducts"
-        element={
-          <ProtectedRoute allowedRoles={["baker"]}>
-            <BaseLayout>
-              <MyProductsPage />
-            </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/bakers"
-        element={
-          <ProtectedRoute allowedRoles={["customer", "admin"]}>
-            <BaseLayout>
-              <BakerDirectoryPage />
-            </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/adminpanel"
-        element={
-          <ProtectedRoute allowedRoles={["admin"]}>
-            <BaseLayout>
-              <AdminPanel />
-            </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/admincontact"
-        element={
-          <ProtectedRoute allowedRoles={["admin"]}>
-            <BaseLayout>
-              <AdminContactMessages />
-            </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Not Found */}
-      <Route
-        path="/notfound"
-        element={
-          <BaseLayout>
-            <NotFoundPage />
-          </BaseLayout>
-        }
-      />
-
-      <Route
-        path="/about"
-        element={
-          <BaseLayout>
-            <About />
-          </BaseLayout>
-        }
-      />
-
-      <Route
-        path="/contact"
-        element={
-          <BaseLayout>
-            <Contact />
-          </BaseLayout>
-        }
-      />
-
-      <Route
-        path="/profile"
-        element={
-          <BaseLayout>
-            <ProfilePage />
-          </BaseLayout>
-        }
-      />
-
-      {/* Catch-all */}
-      <Route path="*" element={<Navigate to="/notfound" replace />} />
-    </Routes>
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/notfound" replace />} />
+      </Routes>
+    </>
   );
 }
 

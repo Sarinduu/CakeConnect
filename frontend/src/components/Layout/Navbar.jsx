@@ -70,12 +70,20 @@ function Navbar() {
                     My Products
                   </Link>
                 </li>
+                 <li>
+                  <Link to="/bcrequests" className="nav-link">
+                    Design Requests
+                  </Link>
+                </li>
+
+                
               </>
             )}
 
             {/* Customer Links */}
             {isLoggedIn && user?.role === "customer" && (
               <>
+              
                 <li>
                   <Link to="/" className="nav-link">
                     Home
@@ -91,11 +99,16 @@ function Navbar() {
                     My Orders
                   </Link>
                 </li>
+                <li>
+                  <Link to="/cakedesign" className="nav-link">
+                    cakedesign
+                  </Link>
+                </li>
               </>
             )}
 
             {/* Common Links for Logged-in and Guests */}
-            {user?.role !== "admin" && (
+            {isLoggedIn && user?.role !== "admin" && (
               <>
                 <li>
                   <Link to="/about" className="nav-link">
