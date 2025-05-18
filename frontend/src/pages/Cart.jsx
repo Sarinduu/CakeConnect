@@ -14,7 +14,7 @@ const CartPage = () => {
   const [loadingCart, setLoadingCart] = useState(true);
   const [placingOrder, setPlacingOrder] = useState(false);
   const navigate = useNavigate();
-  const deliveryFee = 200;
+  const deliveryFee = 300;
 
   const loadCart = async () => {
     try {

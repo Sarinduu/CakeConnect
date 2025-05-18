@@ -168,7 +168,7 @@ const CakeRequestPage = () => {
             />
           </div>
 
-          <button onClick={handleConfirm} disabled={!selectedBaker || loading || gltfBlob}>
+          <button onClick={handleConfirm} disabled={!selectedBaker || loading}>
             {loading ? "Submitting..." : "Confirm & Submit"}
           </button>
 
