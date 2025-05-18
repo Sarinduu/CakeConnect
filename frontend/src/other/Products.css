@@ -224,8 +224,8 @@
 .form-group input[type="password"],
 .form-group textarea,
 .form-group select {
-  width: 100%;
-  padding: 10px;
+   width: 95%;
+  padding: 0.9rem 0.7rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;

@@ -101,13 +101,14 @@ const AdminPanel = () => {
   };
 
   return (
-    <div className="admin-panel">
-      <h2 className="admin-title">Admin Panel - Orders Overview</h2>
+    <div className="cakehub-admin-panel">
+      <h2 className="cakehub-admin-title">Admin Panel - Orders Overview</h2>
 
-      <div className="admin-layout">
-        <div className="admin-orders">
+      <div className="cakehub-admin-layout">
+        {/* Orders List */}
+        <div className="cakehub-admin-orders">
           {loading ? (
-            <div className="spinner" />
+            <div className="cakehub-spinner" />
           ) : orders.length === 0 ? (
             <p>No orders found.</p>
           ) : (
@@ -116,7 +117,7 @@ const AdminPanel = () => {
                 order.paymentStatus === "paid" ? order.totalPrice * 0.1 : 0;
 
               return (
-                <div key={order._id} className="admin-order-card">
+                <div key={order._id} className="cakehub-admin-order-card">
                   <h4>Order ID: {order._id}</h4>
                   <p>
                     <strong>Items:</strong>{" "}
@@ -136,14 +137,16 @@ const AdminPanel = () => {
                     {order.paymentStatus === "paid" ? (
                       <>LKR {orderCommission.toLocaleString()}</>
                     ) : (
-                      <span className="unpaid">Not Paid</span>
+                      <span className="cakehub-admin-unpaid">Not Paid</span>
                     )}
                   </p>
                   <p>
                     <strong>Payment:</strong>{" "}
                     <span
                       className={
-                        order.paymentStatus === "paid" ? "paid" : "unpaid"
+                        order.paymentStatus === "paid"
+                          ? "cakehub-admin-paid"
+                          : "cakehub-admin-unpaid"
                       }
                     >
                       {order.paymentStatus}
@@ -155,16 +158,17 @@ const AdminPanel = () => {
           )}
         </div>
 
-        <div className="admin-summary">
+        {/* Summary Panel */}
+        <div className="cakehub-admin-summary">
           <h3>Site Earnings</h3>
           <p style={{ marginBottom: "2rem" }}>
             <strong>Total Commission:</strong>{" "}
-            <span className="earnings">
+            <span className="cakehub-admin-earnings">
               LKR {siteEarnings.toLocaleString()}
             </span>
           </p>
 
-          <div className="chart-container">
+          <div className="cakehub-admin-chart-container">
             <h4>Monthly Orders</h4>
             <Bar data={ordersChartData} options={chartOptions} />
 

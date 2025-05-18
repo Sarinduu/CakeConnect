@@ -13,11 +13,6 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Products from "./pages/Products";
 
-//import Customize from "./pages/Customize";// Import Customize page
-import Bakers from "./other/Bakers"; // Import Bakers page
-import Browse from "./other/Browse"; // Import Browse page
-import Checkout from "./other/Checkout"; // Import checkout page
-
 import BakerDirectoryPage from "./pages/BakerDirectoryPage";
 import BakerDashboard from "./pages/BakerDashboard";
 import AdminPanel from "./pages/AdminPanel";
@@ -115,7 +110,7 @@ function App() {
           }
         />
 
-         <Route
+        <Route
           path="/cake-request"
           element={
             <ProtectedRoute allowedRoles={["customer"]}>
@@ -125,9 +120,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-
-        
 
         <Route
           path="/my-orders"
@@ -160,7 +152,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/bcrequests"
           element={
             <ProtectedRoute allowedRoles={["baker"]}>

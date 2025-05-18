@@ -1,4 +1,4 @@
-.back-button11 {
+.back-button-common {
   background: none;
   color: #333;
   border: 1px solid #ccc;
@@ -10,7 +10,7 @@
   margin-bottom: 20px;
 }
 
-.back-button11:hover {
+.back-button-common:hover {
   background-color: #f0f0f0;
   color: #ccc;
 }

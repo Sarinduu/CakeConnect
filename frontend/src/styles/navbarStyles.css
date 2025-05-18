@@ -1,6 +1,4 @@
- /* Navbar.css */
-
-.navbar {
+.cakehub-nav-bar {
   background-color: white;
   color: #333;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -11,7 +9,7 @@
   width: 100%;
 }
 
-.navbar-container {
+.cakehub-nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,33 +18,33 @@
   padding: 0 20px;
 }
 
-.logo {
+.cakehub-nav-logo {
   display: flex;
   align-items: center;
 }
 
-.logo img {
+.cakehub-nav-logo img {
   height: 40px;
   width: auto;
 }
 
-.nav-middle {
+.cakehub-nav-middle {
   flex-grow: 1;
   margin-left: 40px;
 }
 
-.nav-links {
+.cakehub-nav-links {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.nav-links li {
+.cakehub-nav-links li {
   margin-right: 25px;
 }
 
-.nav-link {
+.cakehub-nav-link {
   color: #333;
   text-decoration: none;
   font-weight: 500;
@@ -54,71 +52,28 @@
   transition: color 0.3s ease;
 }
 
-.nav-link:hover {
+.cakehub-nav-link:hover {
   color: #ff6b6b;
 }
 
-.nav-right {
+.cakehub-nav-right {
   display: flex;
   align-items: center;
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px 10px;
-}
-
-.search-box input {
-  border: none;
-  outline: none;
-  padding: 5px;
-  width: 180px;
-}
-
-.search-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.search-button img {
-  width: 18px;
-  height: 18px;
-}
-
-.cart-icon {
+.cakehub-nav-cart-icon {
   position: relative;
   margin-right: 20px;
   color: #333;
   text-decoration: none;
 }
 
-.cart-icon img {
+.cakehub-nav-cart-icon img {
   width: 24px;
   height: 24px;
 }
 
-.cart-count {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #ff6b6b;
-  color: white;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-}
-
-.login-button {
+.cakehub-login-button {
   background-color: #ff6b6b;
   color: white;
   padding: 8px 20px;
@@ -128,18 +83,18 @@
   transition: background-color 0.3s ease;
 }
 
-.login-button:hover {
+.cakehub-login-button:hover {
   background-color: #ff5252;
 }
 
-/* User dropdown styles */
-.user-dropdown {
+/* User Dropdown */
+.cakehub-user-dropdown {
   position: relative;
   display: inline-block;
   margin-left: 15px;
 }
 
-.user-greeting {
+.cakehub-user-greeting {
   cursor: pointer;
   color: #333;
   font-weight: 500;
@@ -149,23 +104,24 @@
   transition: all 0.3s ease;
 }
 
-.user-greeting:hover {
+.cakehub-user-greeting:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.dropdown-content {
+.cakehub-dropdown-content {
   display: none;
   position: absolute;
   right: 0;
   background-color: white;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-radius: 4px;
   overflow: hidden;
 }
 
-.dropdown-content a, .dropdown-content button {
+.cakehub-dropdown-content a,
+.cakehub-dropdown-content button {
   color: #333;
   padding: 12px 16px;
   text-decoration: none;
@@ -178,45 +134,41 @@
   font-size: 14px;
 }
 
-.dropdown-content a:hover, .dropdown-content button:hover {
+.cakehub-dropdown-content a:hover,
+.cakehub-dropdown-content button:hover {
   background-color: #f8f9fa;
 }
 
-.user-dropdown:hover .dropdown-content {
+.cakehub-user-dropdown:hover .cakehub-dropdown-content {
   display: block;
 }
 
-/* Responsive styles */
+/* Responsive */
 @media (max-width: 768px) {
-  .navbar-container {
+  .cakehub-nav-container {
     flex-direction: column;
     align-items: flex-start;
   }
-  
-  .nav-middle {
+
+  .cakehub-nav-middle {
     margin-left: 0;
     margin-top: 15px;
     width: 100%;
   }
-  
-  .nav-links {
+
+  .cakehub-nav-links {
     flex-direction: column;
     width: 100%;
   }
-  
-  .nav-links li {
+
+  .cakehub-nav-links li {
     margin-right: 0;
     margin-bottom: 10px;
   }
-  
-  .nav-right {
+
+  .cakehub-nav-right {
     margin-top: 15px;
     width: 100%;
     justify-content: space-between;
-  }
-  
-  .search-box {
-    margin-right: 10px;
-    flex-grow: 1;
   }
 }

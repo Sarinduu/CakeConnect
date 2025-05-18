@@ -6,7 +6,7 @@ const BackButton = ({ label = "← Back" }) => {
   const navigate = useNavigate();
 
   return (
-    <button className="back-button11" onClick={() => navigate(-1)}>
+    <button className="back-button-common" onClick={() => navigate(-1)}>
       {label}
     </button>
   );

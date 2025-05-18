@@ -1,13 +1,13 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import "./baseLayoutStyle.css";
+import "../../styles/baseLayoutStyle.css";
 
 const BaseLayout = ({ children, showFooter = true }) => {
   return (
-    <div className="layout-container">
+    <div className="cakehub-layout-container">
       <Navbar />
-      <main className="layout-main">{children}</main>
+      <main className="cakehub-layout-main">{children}</main>
       {showFooter && <Footer />}
     </div>
   );

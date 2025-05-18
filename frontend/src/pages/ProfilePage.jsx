@@ -88,23 +88,25 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="profile-page">
+    <div className="cakehub-profile-page">
       <h2>My Profile</h2>
 
-      <div className="profile-card">
-        <div className="profile-image">
+      <div className="cakehub-profile-card">
+        <div className="cakehub-profile-image">
           <img
             src={profile.imageUrl || "/images/default-avatar.png"}
             alt="Profile"
           />
         </div>
-        <div className="profile-info">
+
+        <div className="cakehub-profile-info">
           <p>
             <strong>Name:</strong> {profile.name}
           </p>
           <p>
             <strong>Email:</strong> {profile.email}
           </p>
+
           {isBaker ? (
             <>
               <p>
@@ -143,18 +145,19 @@ const ProfilePage = () => {
             </>
           )}
         </div>
-        <button className="edit-btn" onClick={openEditModal}>
+
+        <button className="cakehub-edit-btn" onClick={openEditModal}>
           Edit Profile
         </button>
       </div>
 
       {showModal && (
-        <div className="profile-modal">
-          <div className="modal-content">
+        <div className="cakehub-profile-modal">
+          <div className="cakehub-modal-content">
             <h3>Edit Profile</h3>
             <form onSubmit={handleSubmit}>
               {imagePreview && (
-                <div className="profile-image-preview">
+                <div className="cakehub-profile-image-preview">
                   <img src={imagePreview} alt="Preview" />
                 </div>
               )}
@@ -163,7 +166,6 @@ const ProfilePage = () => {
                 accept="image/*"
                 onChange={handleImageChange}
               />
-
               <input
                 type="text"
                 name="name"
@@ -171,7 +173,6 @@ const ProfilePage = () => {
                 onChange={handleChange}
                 placeholder="Full Name"
               />
-
               {isBaker ? (
                 <>
                   <input
@@ -236,7 +237,7 @@ const ProfilePage = () => {
                 </>
               )}
 
-              <div className="modal-actions">
+              <div className="cakehub-modal-actions">
                 <button type="submit" disabled={updating}>
                   {updating ? "Updating..." : "Save"}
                 </button>
@@ -244,7 +245,7 @@ const ProfilePage = () => {
                   Cancel
                 </button>
               </div>
-              {message && <p className="message">{message}</p>}
+              {message && <p className="cakehub-message">{message}</p>}
             </form>
           </div>
         </div>

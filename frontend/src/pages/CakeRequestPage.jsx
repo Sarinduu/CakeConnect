@@ -89,94 +89,94 @@ const CakeRequestPage = () => {
     }
   };
 
-  return (
-    <div className="cake-request-page">
-      <div
+return (
+  <div className="cakehub-request-page">
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        position: "relative",
+        marginBottom: "20px",
+      }}
+    >
+      <div style={{ flex: "0 0 auto" }}>
+        <BackButton />
+      </div>
+
+      <h2
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          position: "relative",
-          marginBottom: "20px",
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+          margin: 0,
         }}
       >
-        <div style={{ flex: "0 0 auto" }}>
-          <BackButton />
-        </div>
+        Send Cake Design Request
+      </h2>
+    </div>
 
-        <h2
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            margin: 0,
-          }}
-        >
-          Send Cake Design Request
-        </h2>
+    <div className="cakehub-request-layout">
+      <div className="cakehub-request-left">
+        <h3>Preview</h3>
+        <div className="cakehub-request-preview-box">
+          {layers?.length > 0 ? (
+            <CakePreview layers={layers} />
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <p>No design data to preview</p>
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="cake-request-layout">
-        <div className="cake-request-left">
-          <h3>Preview</h3>
-          <div className="cake-preview-box">
-            {layers?.length > 0 ? (
-              <CakePreview layers={layers} />
-            ) : (
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <p>No design data to preview</p>
-              </div>
-            )}
-          </div>
+      <div className="cakehub-request-right">
+        <h3>Select a Baker</h3>
+        <div className="cakehub-request-baker-selector">
+          {bakers.map((baker) => (
+            <div
+              key={baker._id}
+              className={`cakehub-request-baker-card ${
+                selectedBaker === baker._id ? "selected" : ""
+              }`}
+              onClick={() => setSelectedBaker(baker._id)}
+            >
+              <img
+                src={baker.imageUrl || "/images/default-baker.jpg"}
+                alt={baker.name}
+              />
+              <h4>{baker.name}</h4>
+              <p>{baker.specialty}</p>
+            </div>
+          ))}
         </div>
 
-        <div className="cake-request-right">
-          <h3>Select a Baker</h3>
-          <div className="baker-selector">
-            {bakers.map((baker) => (
-              <div
-                key={baker._id}
-                className={`baker-card ${
-                  selectedBaker === baker._id ? "selected" : ""
-                }`}
-                onClick={() => setSelectedBaker(baker._id)}
-              >
-                <img
-                  src={baker.imageUrl || "/images/default-baker.jpg"}
-                  alt={baker.name}
-                />
-                <h4>{baker.name}</h4>
-                <p>{baker.specialty}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="message-box">
-            <label>Message to Baker (optional)</label>
-            <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Any custom instructions..."
-            />
-          </div>
-
-          <button onClick={handleConfirm} disabled={!selectedBaker || loading}>
-            {loading ? "Submitting..." : "Confirm & Submit"}
-          </button>
-
-          {confirmMessage && <p className="success">{confirmMessage}</p>}
+        <div className="cakehub-request-message-box">
+          <label>Message to Baker (optional)</label>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Any custom instructions..."
+          />
         </div>
+
+        <button onClick={handleConfirm} disabled={!selectedBaker || loading}>
+          {loading ? "Submitting..." : "Confirm & Submit"}
+        </button>
+
+        {confirmMessage && <p className="cakehub-request-success">{confirmMessage}</p>}
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default CakeRequestPage;

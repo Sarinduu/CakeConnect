@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  fetchAllProducts,
-  fetchProductById,
-} from "../services/productService";
+import { fetchAllProducts, fetchProductById } from "../services/productService";
 import {
   getProductReviews,
   addReview,
@@ -28,7 +25,15 @@ const ProductsPage = () => {
   const user = getUserFromToken();
   const isCustomer = isAuthenticated() && user?.role === "customer";
 
-  const categories = ["all", "cake", "cookie", "cupcake", "bread", "pastry", "other"];
+  const categories = [
+    "all",
+    "cake",
+    "cookie",
+    "cupcake",
+    "bread",
+    "pastry",
+    "other",
+  ];
 
   useEffect(() => {
     fetchAllProducts().then(setProducts);
@@ -112,10 +117,10 @@ const ProductsPage = () => {
   };
 
   return (
-    <div className="products-page">
+    <div className="cakehub-products-page">
       <h2>Our Products</h2>
 
-      <div className="category-filter">
+      <div className="cakehub-products-filter">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -127,9 +132,13 @@ const ProductsPage = () => {
         ))}
       </div>
 
-      <div className="product-grid">
+      <div className="cakehub-products-grid">
         {filtered.map((p) => (
-          <div key={p._id} className="product-card" onClick={() => openPopup(p._id)}>
+          <div
+            key={p._id}
+            className="cakehub-product-card"
+            onClick={() => openPopup(p._id)}
+          >
             <img src={p.imageUrl} alt={p.name} />
             <h4>{p.name}</h4>
             <p>LKR {p.price}</p>
@@ -138,14 +147,18 @@ const ProductsPage = () => {
       </div>
 
       {selectedProductId && (
-        <div className="product-popup">
-          <div className="popup-content two-columns">
-            <button className="close-btn" onClick={closePopup}>×</button>
+        <div className="cakehub-product-popup">
+          <div className="cakehub-popup-content cakehub-two-columns">
+            <button className="cakehub-close-btn" onClick={closePopup}>
+              ×
+            </button>
 
             {/* Left: Product Info */}
-            <div className="popup-left">
+            <div className="cakehub-product-popup-left">
               {loadingProduct ? (
-                <div className="loader"><div className="spinner" /></div>
+                <div className="cakehub-loader">
+                  <div className="cakehub-spinner" />
+                </div>
               ) : error ? (
                 <p>{error}</p>
               ) : (
@@ -154,10 +167,14 @@ const ProductsPage = () => {
                     <img src={productData.imageUrl} alt={productData.name} />
                     <h3>{productData.name}</h3>
                     <p>{productData.description}</p>
-                    <p><strong>Price:</strong> LKR {productData.price}</p>
-                    <p><strong>Baker:</strong> {productData.baker?.name}</p>
+                    <p>
+                      <strong>Price:</strong> LKR {productData.price}
+                    </p>
+                    <p>
+                      <strong>Baker:</strong> {productData.baker?.name}
+                    </p>
 
-                    <div className="cart-actions">
+                    <div className="cakehub-cart-actions">
                       <input
                         type="number"
                         min="1"
@@ -172,69 +189,88 @@ const ProductsPage = () => {
             </div>
 
             {/* Right: Reviews */}
-            <div className="popup-right">
+            <div className="cakehub-product-popup-right">
               <h4>Customer Reviews</h4>
               {loadingReviews ? (
-                <div className="loader"><div className="spinner" /></div>
+                <div className="cakehub-loader">
+                  <div className="cakehub-spinner" />
+                </div>
               ) : (
                 <>
                   {reviews.length === 0 && <p>No reviews yet.</p>}
 
-                  {/* Other customers first */}
-                  {reviews.filter(r => r.customer.id !== user?.id).map(r => (
-                    <div key={r._id} className="review-item">
-                      <div>{renderStars(r.rating)}</div>
-                      <p>{r.comment}</p>
-                      <small>By {r.customer.name}</small>
-                    </div>
-                  ))}
-
-                  {/* Current user review */}
-                  {isCustomer && reviews.some(r => r.customer.id === user?.id) && (
-                    <>
-                      <h5>Your Review</h5>
-                      {reviews
-                        .filter(r => r.customer.id === user?.id)
-                        .map(r => (
-                          <div key={r._id} className="review-item">
-                            <div>{renderStars(r.rating)}</div>
-                            <p>{r.comment}</p>
-                            <button onClick={() => handleEditReview(r._id, r.comment, r.rating)}>Edit</button>
-                            <button onClick={() => handleDeleteReview(r._id)}>Delete</button>
-                          </div>
-                        ))}
-                    </>
-                  )}
-
-                  {/* If no review yet */}
-                  {isCustomer && !reviews.some(r => r.customer.id === user?.id) && (
-                    <div className="review-form">
-                      <h5>Add Your Review</h5>
-                      <div className="stars">
-                        {[1, 2, 3, 4, 5].map(n => (
-                          <span
-                            key={n}
-                            onClick={() => setNewReview({ ...newReview, rating: n })}
-                            style={{
-                              cursor: "pointer",
-                              color: newReview.rating >= n ? "#ffc107" : "#ccc",
-                              fontSize: "3rem",
-                            }}
-                          >
-                            ★
-                          </span>
-                        ))}
+                  {reviews
+                    .filter((r) => r.customer.id !== user?.id)
+                    .map((r) => (
+                      <div key={r._id} className="cakehub-review-item">
+                        <div>{renderStars(r.rating)}</div>
+                        <p>{r.comment}</p>
+                        <small>By {r.customer.name}</small>
                       </div>
-                      <textarea
-                        placeholder="Write your review..."
-                        value={newReview.comment}
-                        onChange={(e) =>
-                          setNewReview({ ...newReview, comment: e.target.value })
-                        }
-                      />
-                      <button onClick={handleSubmitReview}>Submit Review</button>
-                    </div>
-                  )}
+                    ))}
+
+                  {isCustomer &&
+                    reviews.some((r) => r.customer.id === user?.id) && (
+                      <>
+                        <h5>Your Review</h5>
+                        {reviews
+                          .filter((r) => r.customer.id === user?.id)
+                          .map((r) => (
+                            <div key={r._id} className="cakehub-review-item">
+                              <div>{renderStars(r.rating)}</div>
+                              <p>{r.comment}</p>
+                              <button
+                                onClick={() =>
+                                  handleEditReview(r._id, r.comment, r.rating)
+                                }
+                              >
+                                Edit
+                              </button>
+                              <button onClick={() => handleDeleteReview(r._id)}>
+                                Delete
+                              </button>
+                            </div>
+                          ))}
+                      </>
+                    )}
+
+                  {isCustomer &&
+                    !reviews.some((r) => r.customer.id === user?.id) && (
+                      <div className="cakehub-review-form">
+                        <h5>Add Your Review</h5>
+                        <div className="cakehub-stars">
+                          {[1, 2, 3, 4, 5].map((n) => (
+                            <span
+                              key={n}
+                              onClick={() =>
+                                setNewReview({ ...newReview, rating: n })
+                              }
+                              style={{
+                                cursor: "pointer",
+                                color:
+                                  newReview.rating >= n ? "#ffc107" : "#ccc",
+                                fontSize: "3rem",
+                              }}
+                            >
+                              ★
+                            </span>
+                          ))}
+                        </div>
+                        <textarea
+                          placeholder="Write your review..."
+                          value={newReview.comment}
+                          onChange={(e) =>
+                            setNewReview({
+                              ...newReview,
+                              comment: e.target.value,
+                            })
+                          }
+                        />
+                        <button onClick={handleSubmitReview}>
+                          Submit Review
+                        </button>
+                      </div>
+                    )}
                 </>
               )}
             </div>
