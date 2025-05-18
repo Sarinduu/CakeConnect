@@ -1,115 +1,141 @@
+/* Primary wrapper */
 .cake-designer-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #2c3e50;
+  padding: 30px;
+  margin: auto;
+  background: #fef8f6;
 }
 
-.designer-title {
+.cake-designer-title {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #5d2a2a;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #6a3e36;
 }
 
-.designer-body {
+/* Layout */
+.cake-designer-body {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   gap: 30px;
 }
 
-.cake-preview-section {
+.cake-designer-preview {
   flex: 2;
-  min-height: 500px;
-  background: #f4f4f4;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.cake-control-section {
-  flex: 1;
+  height: 700px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.cake-control-section h2,
-.cake-control-section h3 {
-  margin-bottom: 0.5rem;
-  color: #5d2a2a;
+/* Controls Panel */
+.cake-designer-controls {
+  flex: 1;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+.cake-designer-controls h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #333;
 }
 
-.input-group label {
-  font-weight: 600;
-  font-size: 0.95rem;
+.cake-designer-controls label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+  color: #555;
 }
 
-.input-group input[type="number"],
-.input-group input[type="color"],
-.cake-control-section input[type="text"],
-.cake-control-section select {
-  padding: 0.4rem 0.7rem;
+/* Inputs */
+.cake-designer-controls input[type="number"],
+.cake-designer-controls input[type="text"],
+.cake-designer-controls select {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 4px;
+  margin-bottom: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 0.95rem;
+  border-radius: 4px;
 }
 
-.designer-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 1rem;
-}
-
-.designer-buttons button {
-  background-color: #e27d60;
+.cake-designer-controls input[type="color"] {
+  width: 100%;
+  height: 40px;
   border: none;
-  padding: 8px 14px;
-  color: #fff;
+  margin-bottom: 10px;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Button group */
+.cake-designer-buttons-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.cake-designer-buttons-row button {
+  flex: 1;
+  padding: 10px;
+  background-color: #f7b5a7;
+  color: #442a28;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   transition: background 0.3s;
 }
 
-.designer-buttons button:hover {
-  background-color: #c94c4c;
+.cake-designer-buttons-row button:hover {
+  background-color: #f18f84;
+  color: #ffffff;
 }
 
-.preset-buttons {
+/* Presets */
+.cake-designer-presets {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
-.preset-buttons button {
-  background-color: #a8dadc;
-  border: none;
+.cake-designer-presets button {
+  background: #ffeae0;
+  border: 1px solid #e0cfc2;
   padding: 6px 12px;
   border-radius: 6px;
-  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-size: 0.85rem;
+  color: #5c4033;
+  transition: background-color 0.3s;
 }
 
-.preset-buttons button:hover {
-  background-color: #76c7c0;
+.cake-designer-presets button:hover {
+  background-color: #ffdbc9;
+  color: #ffffff;
 }
 
-select {
-  padding: 6px 12px;
+/* Submit */
+.cake-designer-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #ef6f6c;
+  border: none;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  color: white;
+  font-weight: bold;
   font-size: 1rem;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.cake-designer-submit-btn:hover {
+  background-color: #c54441;
 }
