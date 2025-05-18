@@ -8,6 +8,7 @@ const {
   updateBakerOrderStatus,
   getOrderById,
   markOrderAsPaid,
+  getAllOrders,
 } = require("../controllers/orderController");
 
 const { protect, checkRole } = require("../middleware/authMiddleware");
@@ -26,6 +27,8 @@ router.post("/", checkRole("customer"), placeOrder);
 // @desc    Get all orders of the logged-in customer
 // @access  Private (Customer)
 router.get("/my", checkRole("customer"), getMyOrders);
+
+router.get("/all", checkRole("admin"), getAllOrders);
 
 // @route   PATCH /api/orders/:orderId/pay
 // @desc    Mark an order as paid (customer side)

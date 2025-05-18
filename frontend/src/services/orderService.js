@@ -22,6 +22,13 @@ export const getMyOrders = async () => {
   return res.data;
 };
 
+// Get all orders (Admin only)
+export const getAllOrders = async () => {
+  const res = await axios.get(`${API_URL}/all`, authHeader());
+
+  return res.data;
+};
+
 // Customer: Mark order as paid
 export const markOrderAsPaid = async (orderId) => {
   const res = await axios.patch(`${API_URL}/${orderId}/pay`, {}, authHeader());

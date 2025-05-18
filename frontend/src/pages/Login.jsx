@@ -21,7 +21,7 @@ const Login = () => {
 
       const role = getUserRole();
       if (role === "admin") {
-        navigate("/a", { replace: true });
+        navigate("/adminpanel", { replace: true });
       } else if (role === "baker") {
         navigate("/bkdashboard", { replace: true });
       } else {

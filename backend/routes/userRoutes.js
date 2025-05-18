@@ -43,7 +43,12 @@ router.get("/users/customers", protect, checkRole("admin"), getAllCustomers);
 // @route   GET /api/users/bakers
 // @desc    Get all bakers
 // @access  Private (Admin)
-router.get("/users/bakers", protect, checkRole("admin"), getAllBakers);
+router.get(
+  "/users/bakers",
+  protect,
+  checkRole("admin", "customer"),
+  getAllBakers
+);
 
 // @route   DELETE /api/users/customers/:id
 // @desc    Delete a customer by ID

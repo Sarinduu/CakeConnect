@@ -93,11 +93,15 @@ const getAllCustomers = async (req, res) => {
 // Get all bakers
 const getAllBakers = async (req, res) => {
   try {
-    const bakers = await Baker.find().select(
-      "name email bakerType specialty imageUrl"
-    );
+    const bakers = await Baker.find({}, { password: 0 }) 
+      .populate({
+        path: "products",
+        select: "-__v -createdAt -updatedAt", 
+      });
+
     res.json(bakers);
   } catch (err) {
+    console.error("Error fetching bakers:", err.message);
     res.status(500).json({ message: "Failed to fetch bakers" });
   }
 };

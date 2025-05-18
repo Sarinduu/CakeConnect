@@ -38,11 +38,23 @@ function Navbar() {
           <ul className="nav-links">
             {/* Admin Links */}
             {isLoggedIn && user?.role === "admin" && (
-              <li>
-                <Link to="/adminpanel" className="nav-link">
-                  Admin Panel
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to="/adminpanel" className="nav-link">
+                    Admin Panel
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/bakers" className="nav-link">
+                    Bakers
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/admincontact" className="nav-link">
+                    Contact Messages
+                  </Link>
+                </li>
+              </>
             )}
 
             {/* Baker Links */}
@@ -83,16 +95,20 @@ function Navbar() {
             )}
 
             {/* Common Links for Logged-in and Guests */}
-            <li>
-              <Link to="/about" className="nav-link">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className="nav-link">
-                Contact
-              </Link>
-            </li>
+            {user?.role !== "admin" && (
+              <>
+                <li>
+                  <Link to="/about" className="nav-link">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/contact" className="nav-link">
+                    Contact
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
@@ -109,7 +125,7 @@ function Navbar() {
             <div className="user-dropdown">
               <span className="user-greeting">Hello, {user?.name}</span>
               <div className="dropdown-content">
-                <Link to="/profile">Profile</Link>
+                {user?.role !== "admin" && <Link to="/profile">Profile</Link>}
                 <button onClick={handleLogout}>Logout</button>
               </div>
             </div>

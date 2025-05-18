@@ -13,8 +13,8 @@ const HomePage = () => {
       <p>Connecting you with talented bakers across the country</p>
       <div className="cta-buttons">
         <Link to="/customize" className="primary-btn">Design Your Cake</Link>
-        <Link to="/browse" className="secondary-btn">Browse Collections</Link>
-        <Link to="/cakemaker" className="secondary-btn">Cake makers</Link>
+        <Link to="/products" className="secondary-btn">Browse Products</Link>
+        <Link to="/bakers" className="secondary-btn">Bakers</Link>
       </div>
     </div>
     <div className="hero-gallery">

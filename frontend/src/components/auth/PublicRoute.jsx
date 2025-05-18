@@ -9,7 +9,7 @@ const PublicRoute = ({ children }) => {
     // Redirect based on role
     switch (role) {
       case "admin":
-        return <Navigate to="/a" replace />;
+        return <Navigate to="/adminpanel" replace />;
       case "baker":
         return <Navigate to="/bkdashboard" replace />;
       case "customer":

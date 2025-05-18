@@ -236,6 +236,28 @@ const getOrderById = async (req, res) => {
   }
 };
 
+// Get all orders (admin)
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .sort({ createdAt: -1 })
+      .populate("customer", "name email")
+      .populate({
+        path: "bakerOrders.baker",
+        select: "name email",
+      })
+      .populate({
+        path: "bakerOrders.products.product",
+        select: "name imageUrl price",
+      });
+
+    res.json(orders);
+  } catch (err) {
+    console.error("Fetch all orders error:", err.message);
+    res.status(500).json({ message: "Failed to fetch all orders" });
+  }
+};
+
 module.exports = {
   placeOrder,
   getMyOrders,
@@ -243,4 +265,5 @@ module.exports = {
   updateBakerOrderStatus,
   getOrderById,
   markOrderAsPaid,
+  getAllOrders
 };

@@ -7,28 +7,27 @@ import PublicRoute from "./components/auth/PublicRoute";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
-//import Navbar from "./components/Layout/Navbar";
-import Contact from "./pages/Contact"; // Import contact page
-//import Footer from "./components/Layout/Footer";
+import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Checkout from "./pages/Checkout"; // Import checkout page
-
-import Products from "./pages/Products"; // Import product page
-//import Customize from "./pages/Customize";// Import Customize page
-import Bakers from "./pages/Bakers"; // Import Bakers page
-import Browse from "./pages/Browse"; // Import Browse page
 import Cart from "./pages/Cart";
-import Cakemaker from "./pages/Cakemaker";
+import Products from "./pages/Products";
 
+//import Customize from "./pages/Customize";// Import Customize page
+import Bakers from "./other/Bakers"; // Import Bakers page
+import Browse from "./other/Browse"; // Import Browse page
+import Checkout from "./other/Checkout"; // Import checkout page
+
+import BakerDirectoryPage from "./pages/BakerDirectoryPage";
 import BakerDashboard from "./pages/BakerDashboard";
-import B2Home from "./pages/B2Home";
-import B3Home from "./pages/B3Home";
+import AdminPanel from "./pages/AdminPanel";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
 import PaymentPage from "./pages/PaymentPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import MyProductsPage from "./pages/MyProductsPage";
+import AdminContactMessages from "./pages/AdminContactMessages";
+
 
 function App() {
   return (
@@ -122,7 +121,7 @@ function App() {
           </ProtectedRoute>
         }
       />
-       <Route
+      <Route
         path="/myproducts"
         element={
           <ProtectedRoute allowedRoles={["baker"]}>
@@ -133,14 +132,34 @@ function App() {
         }
       />
 
-      
+      <Route
+        path="/bakers"
+        element={
+          <ProtectedRoute allowedRoles={["customer", "admin"]}>
+            <BaseLayout>
+              <BakerDirectoryPage />
+            </BaseLayout>
+          </ProtectedRoute>
+        }
+      />
 
       <Route
-        path="/a"
+        path="/adminpanel"
         element={
           <ProtectedRoute allowedRoles={["admin"]}>
             <BaseLayout>
-              <B3Home />
+              <AdminPanel />
+            </BaseLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admincontact"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <BaseLayout>
+              <AdminContactMessages />
             </BaseLayout>
           </ProtectedRoute>
         }
