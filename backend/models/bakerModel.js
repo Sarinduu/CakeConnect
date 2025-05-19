@@ -43,14 +43,14 @@ BakerSchema.virtual("products", {
 });
 
 // Cascade delete products when baker is removed
-BakerSchema.pre("remove", async function (next) {
-  try {
-    await Product.deleteMany({ baker: this._id });
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+// BakerSchema.pre("remove", async function (next) {
+//   try {
+//     await Product.deleteMany({ baker: this._id });
+//     next();
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 const Baker = User.discriminator("baker", BakerSchema);
 module.exports = Baker;

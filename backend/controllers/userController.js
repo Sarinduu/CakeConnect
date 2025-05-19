@@ -47,7 +47,10 @@ const updateMyProfile = async (req, res) => {
 
     // Update other fields
     Object.keys(req.body).forEach((field) => {
-      if (req.body[field] !== undefined) {
+      if (
+        req.body[field] !== undefined &&
+        !["imageUrl", "imageFilename"].includes(field)
+      ) {
         user[field] = req.body[field];
       }
     });
@@ -93,11 +96,10 @@ const getAllCustomers = async (req, res) => {
 // Get all bakers
 const getAllBakers = async (req, res) => {
   try {
-    const bakers = await Baker.find({}, { password: 0 }) 
-      .populate({
-        path: "products",
-        select: "-__v -createdAt -updatedAt", 
-      });
+    const bakers = await Baker.find({}, { password: 0 }).populate({
+      path: "products",
+      select: "-__v -createdAt -updatedAt",
+    });
 
     res.json(bakers);
   } catch (err) {
@@ -134,9 +136,10 @@ const deleteBakerById = async (req, res) => {
       await deleteImageFromSupabase(baker.imageFilename);
     }
 
-    await baker.remove();
+    await baker.deleteOne();
     res.json({ message: "Baker deleted" });
   } catch (err) {
+    console.log("deleteBakerById ~ err:", err)
     res.status(500).json({ message: "Failed to delete baker" });
   }
 };
